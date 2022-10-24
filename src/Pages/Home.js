@@ -9,6 +9,7 @@ import { submitForm, validForm, unvalidForm } from '../redux/actions'
 import DatePicker from "react-datepicker"
 
 import "react-datepicker/dist/react-datepicker.css";
+import Dropdown from '../Components/DropDown/Dropdown'
 
 //Make sure to bind modal to your appElement (https://reactcommunity.org/react-modal/accessibility/)
 ReactModal.setAppElement('#root');
@@ -153,6 +154,7 @@ export default function Home() {
 
                         <label htmlFor="state">State</label>
                         <select name="state" id="state"></select>
+                        < Dropdown list={['Sales', 'Marketing', 'Engineering', 'Human Ressources', 'Legal']} setValue={setDepartment}/>
 
                         <Input label="Zip Code" labelFor="zip-code" inputType="number" inputId="zip-code" />
                     </fieldset>
