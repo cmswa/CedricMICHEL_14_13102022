@@ -153,21 +153,23 @@ export default function Home() {
                             onChange={e => setCity(e.target.value)} />
 
                         <label htmlFor="state">State</label>
-                        <select name="state" id="state"></select>
-                        < Dropdown list={['Sales', 'Marketing', 'Engineering', 'Human Ressources', 'Legal']} setValue={setDepartment}/>
+                        {/* <select name="state" id="state"></select> */}
+                        < Dropdown list={statesNames} setValue={setState} />
 
                         <Input label="Zip Code" labelFor="zip-code" inputType="number" inputId="zip-code" />
                     </fieldset>
 
                     <label htmlFor="department">Department</label>
-                    <select name="department" id="department">
+                    {/* <select name="department" id="department">
                         <option>Sales</option>
                         <option>Marketing</option>
                         <option>Engineering</option>
                         <option>Human Resources</option>
                         <option>Legal</option>
-                    </select>
-                    <button>Save</button>
+                    </select> */}
+                    < Dropdown list={['Sales', 'Marketing', 'Engineering', 'Human Ressources', 'Legal']} setValue={setDepartment} />
+
+                    <button className='saveBtn' >Save</button>
                 </form>
 
                 {/* <button onclick="saveEmployee()">Save</button> */}
@@ -177,8 +179,8 @@ export default function Home() {
             <ReactModal
                 isOpen={isOpen}
                 contentLabel="Employee Created!"
-                // onRequestClose={reset}
-                >
+            // onRequestClose={reset}
+            >
                 <div>Employee Created!</div>
                 <button onClick={closeModal}>close</button>
             </ReactModal>
