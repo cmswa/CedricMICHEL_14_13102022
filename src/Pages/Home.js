@@ -7,9 +7,10 @@ import { employeesData } from '../data/data'
 import { states } from '../data/states'
 import { submitForm, validForm, unvalidForm } from '../redux/actions'
 import DatePicker from "react-datepicker"
+import moment from 'moment';
+import Dropdown from '../Components/DropDown/Dropdown'
 
 import "react-datepicker/dist/react-datepicker.css";
-import Dropdown from '../Components/DropDown/Dropdown'
 
 //Make sure to bind modal to your appElement (https://reactcommunity.org/react-modal/accessibility/)
 ReactModal.setAppElement('#root');
@@ -137,11 +138,20 @@ export default function Home() {
                     <Input label="Start Date" labelFor="start-date" inputType="text" inputId="start-date" /> */}
                     <div>
                         <label htmlFor={"date-of-birth"}>Date of Birth</label>
-                        <DatePicker selected={dateOfBirth} onChange={setDateOfBirth} value={dateOfBirth} />
+                        <DatePicker selected={dateOfBirth} onChange={setDateOfBirth} value={dateOfBirth}
+                            maxDate={new Date()}
+                            showMonthDropdown
+                            showYearDropdown
+                            dropdownMode="select" />
                     </div>
                     <div>
                         <label htmlFor={"start-date"}>Start Date</label>
-                        <DatePicker selected={startDate} onChange={setStartDate} value={startDate} />
+                        <DatePicker selected={startDate} onChange={setStartDate} value={startDate}
+                            // maxDate={new Date().setDate(new Date().getDate() + 84)} 
+                            maxDate={moment().add(12, "weeks")._d}
+                            showMonthDropdown
+                            showYearDropdown
+                            dropdownMode="select" />
                     </div>
 
                     <fieldset className="address">
