@@ -31,15 +31,21 @@ export function checkValid() {
 
 export function submitForm(data) {
     return (dispatch, getState) => {
-        const validation = dispatch(checkValid())
-        console.log(validation)
-        if (validation) {
-            const dataReceived = JSON.parse(localStorage.getItem('Array of employees'))
-            const id = dataReceived.length + 1
-            dispatch(actions.submit(data, id))
-            return true
-        } else {
-            return false
-        }
+        // const validation = dispatch(checkValid())
+        // console.log(validation)
+        // if (validation) {
+        //     const dataReceived = JSON.parse(localStorage.getItem('Array of employees'))
+        //     const id = dataReceived.length + 1
+        //     dispatch(actions.submit(data, id))
+        //     return true
+        // } else {
+        //     return false
+        // }
+        const getCurrentEmployees = selectEmployees(getState()).data
+        const id = getCurrentEmployees.length + 1
+        console.log(data);
+        dispatch(actions.submit(data, id))
+        dispatch(actions.addEmployee(data, getCurrentEmployees))
+
     }
 }

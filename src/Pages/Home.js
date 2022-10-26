@@ -129,7 +129,7 @@ export default function Home() {
 
                 <form onSubmit={validateForm} id="create-employee">
                     <Input label="First Name" labelFor="first-name" inputType="text" inputId="first-name"
-                        change={console.log("test")}
+                        // change={console.log("test")}
                         onChange={e => setFirstName(e.target.value)} />
                     <Input label="Last Name" labelFor="last-name" inputType="text" inputId="last-name"
                         onChange={e => setLastName(e.target.value)} />
