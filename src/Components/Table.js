@@ -5,13 +5,13 @@ import {
     GridToolbarExport, GridToolbarQuickFilter
 } from '@mui/x-data-grid';
 
-export default function Table() {
+export default function Table({ data }) {
 
-    const data = JSON.parse(localStorage.getItem('Array of employees'))
+    // const data = JSON.parse(localStorage.getItem('Array of employees'))
 
     const columns = [
-        { field: 'firstName', headerName: 'First name'},
-        { field: 'lastName', headerName: 'Last name'},
+        { field: 'firstName', headerName: 'First name' },
+        { field: 'lastName', headerName: 'Last name' },
         { field: 'startDate', headerName: 'Start Date' },
         { field: 'department', headerName: 'Department' },
         { field: 'dateOfBirth', headerName: 'Date of birth' },

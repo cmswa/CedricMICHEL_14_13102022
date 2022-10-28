@@ -1,16 +1,21 @@
 import React, { useState } from 'react'
 import ReactModal from 'react-modal'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 import Input from '../Components/Input'
 import { employeesData } from '../data/data'
 import { states } from '../data/states'
-import { submitForm, validForm, unvalidForm } from '../redux/actions'
+import { submitForm, validForm, unvalidForm, checkValid } from '../redux/actions'
 import DatePicker from "react-datepicker"
 import moment from 'moment';
 import Dropdown from '../Components/DropDown/Dropdown'
 
 import "react-datepicker/dist/react-datepicker.css";
+import { selectEmployees } from '../utils/selectors'
+import '../styles/pages/home.css'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faTimesCircle } from "@fortawesome/free-solid-svg-icons"
+
 
 //Make sure to bind modal to your appElement (https://reactcommunity.org/react-modal/accessibility/)
 ReactModal.setAppElement('#root');
@@ -18,11 +23,11 @@ ReactModal.setAppElement('#root');
 export default function Home() {
 
     //Enregistrer ou mettre à jour le tableau dans le stockage local 
-    localStorage.setItem('Array of employees', JSON.stringify(employeesData)) //The JSON.stringify() method converts a JavaScript value to a JSON string
+    // localStorage.setItem('Array of employees', JSON.stringify(employeesData)) //The JSON.stringify() method converts a JavaScript value to a JSON string
 
-    const [firstName, setFirstName] = useState('test prénom')
-    const [lastName, setLastName] = useState('test nom')
-    const [dateOfBirth, setDateOfBirth] = useState(new Date())
+    const [firstName, setFirstName] = useState('')
+    const [lastName, setLastName] = useState('')
+    const [dateOfBirth, setDateOfBirth] = useState(null)
     const [startDate, setStartDate] = useState(new Date())
     const [street, setStreet] = useState('')
     const [city, setCity] = useState('')
@@ -44,16 +49,19 @@ export default function Home() {
         return [month, day, year].join('/');
     }
 
+    const getCountEmployees = useSelector(selectEmployees).data.lenght
+
     const newEmployee = {
-        'id': employeesData.length,
-        'firstname': firstName,
-        'lastname': lastName,
-        'dateBirth': formatDate(dateOfBirth),
+        // 'id': employeesData.length,
+        'id': getCountEmployees + 1,
+        'firstName': firstName,
+        'lastName': lastName,
+        'dateOfBirth': formatDate(dateOfBirth),
         'startDate': formatDate(startDate),
         'street': street,
         'city': city,
         'state': state,
-        'zip Code': zipCode,
+        'zipCode': zipCode,
         'department': department,
     }
 
@@ -83,26 +91,29 @@ export default function Home() {
         }
     }
 
-    function storeNewData() {
-        if (localStorage.getItem('Array of employees') === null) {
-            localStorage.setItem('Array of employees', [])
-        }
-        const dataReceived = JSON.parse(localStorage.getItem('Array of employees'));
-        dataReceived.push(newEmployee);
-        localStorage.setItem('Array of employees', JSON.stringify(dataReceived));
-        setIsOpen(true);
-    }
+    // function storeNewData() {
+    //     if (localStorage.getItem('Array of employees') === null) {
+    //         localStorage.setItem('Array of employees', [])
+    //     }
+    //     const dataReceived = JSON.parse(localStorage.getItem('Array of employees'));
+    //     dataReceived.push(newEmployee);
+    //     localStorage.setItem('Array of employees', JSON.stringify(dataReceived));
+    //     setIsOpen(true);
+    // }
 
     function validateForm(e) {
         e.preventDefault();
         checkForm();
-        const submission = dispatch(submitForm(newEmployee));
+        // const submission = dispatch(submitForm(newEmployee));
+        const submission = dispatch(checkValid());
 
         if (submission) {
-            storeNewData();
+            // storeNewData();
+            dispatch(submitForm(newEmployee));
             setFormIsValid(true);
             setDateOfBirth(new Date());
             setStartDate(new Date());
+            setIsOpen(true);
         }
         else {
             setFormIsValid(false);
@@ -129,10 +140,9 @@ export default function Home() {
 
                 <form onSubmit={validateForm} id="create-employee">
                     <Input label="First Name" labelFor="first-name" inputType="text" inputId="first-name"
-                        // change={console.log("test")}
-                        onChange={e => setFirstName(e.target.value)} />
+                        setValue={e => setFirstName(e.target.value)} />
                     <Input label="Last Name" labelFor="last-name" inputType="text" inputId="last-name"
-                        onChange={e => setLastName(e.target.value)} />
+                        setValue={e => setLastName(e.target.value)} />
 
                     {/* <Input label="Date of Birth" labelFor="date-of-birth" inputType="text" inputId="date-of-birth" />
                     <Input label="Start Date" labelFor="start-date" inputType="text" inputId="start-date" /> */}
@@ -142,7 +152,8 @@ export default function Home() {
                             maxDate={new Date()}
                             showMonthDropdown
                             showYearDropdown
-                            dropdownMode="select" />
+                            dropdownMode="select"
+                            placeholderText={"mm/dd/yyyy"} />
                     </div>
                     <div>
                         <label htmlFor={"start-date"}>Start Date</label>
@@ -158,15 +169,16 @@ export default function Home() {
                         <legend>Address</legend>
 
                         <Input label="Street" labelFor="street" inputType="text" inputId="street"
-                            onChange={e => setStreet(e.target.value)} />
+                            setValue={e => setStreet(e.target.value)} />
                         <Input label="City" labelFor="city" inputType="text" inputId="city"
-                            onChange={e => setCity(e.target.value)} />
+                            setValue={e => setCity(e.target.value)} />
 
                         <label htmlFor="state">State</label>
                         {/* <select name="state" id="state"></select> */}
                         < Dropdown list={statesNames} setValue={setState} />
 
-                        <Input label="Zip Code" labelFor="zip-code" inputType="number" inputId="zip-code" />
+                        <Input label="Zip Code" labelFor="zip-code" inputType="number" inputId="zip-code"
+                            setValue={e => setZipCode(e.target.value)} />
                     </fieldset>
 
                     <label htmlFor="department">Department</label>
@@ -189,10 +201,40 @@ export default function Home() {
             <ReactModal
                 isOpen={isOpen}
                 contentLabel="Employee Created!"
-            // onRequestClose={reset}
+                onRequestClose={closeModal}
+                shouldCloseOnOverlayClick={true}
+                className={'modal'}
+                overlayClassName={'overlayModal'}
+                style={{
+                    overlay: {
+                        position: 'fixed',
+                        top: 0,
+                        left: 0,
+                        right: 0,
+                        bottom: 0,
+                        backgroundColor: 'rgba(148, 173, 24, 0.05)',
+                    },
+                    content: {
+                        position: 'absolute',
+                        top: '50%',
+                        left: '50%',
+                        right: 'auto',
+                        bottom: 'auto',
+                        marginRight: '-50%',
+                        transform: 'translate(-50%, -50%)',
+                        border: '1px solid #ccc',
+                        background: '#fff',
+                        WebkitOverflowScrolling: 'touch',
+                        borderRadius: '15px',
+                        outline: 'none',
+                        padding: '20px',
+                        maxWidth: '500px',
+                        width: '80%',
+                    }
+                }}
             >
                 <div>Employee Created!</div>
-                <button onClick={closeModal}>close</button>
+                <FontAwesomeIcon className='modalIcon' onClick={closeModal} icon={faTimesCircle} />
             </ReactModal>
 
             <div id="confirmation" className="modal"></div>
