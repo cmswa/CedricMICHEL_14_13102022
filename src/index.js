@@ -4,6 +4,8 @@ import './index.css';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Home from './Pages/Home';
 import Employees from './Pages/Employees';
+import "@fontsource/ibm-plex-serif"; // Defaults to weight 400.
+import "@fontsource/russo-one"; // Defaults to weight 400.
 
 //Redux
 import { Provider } from 'react-redux';

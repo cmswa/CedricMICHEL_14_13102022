@@ -15,6 +15,7 @@ import { selectEmployees } from '../utils/selectors'
 import '../styles/pages/home.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTimesCircle } from "@fortawesome/free-solid-svg-icons"
+import Header from '../Components/Header/Header'
 
 
 //Make sure to bind modal to your appElement (https://reactcommunity.org/react-modal/accessibility/)
@@ -129,13 +130,14 @@ export default function Home() {
 
     return (
         <>
-            <div className="title">
+            <Header />
+            {/* <div className="title">
                 <h1>HRnet</h1>
-            </div>
+            </div> */}
 
             <div className="container">
-                <Link to='/employee-list'>View Current Employees</Link>
-                <h2>Create Employee</h2>
+                {/* <Link to='/employee-list'>View Current Employees</Link> */}
+                <h2 className='homeTitle' >Create Employee</h2>
                 <button onClick={openModal}>test modal</button>
 
                 <form onSubmit={validateForm} id="create-employee">
