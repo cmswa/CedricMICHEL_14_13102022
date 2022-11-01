@@ -16,6 +16,7 @@
     width: 100%;
     z-index: 1;
     background-color: white;
+    /* height: 78px; */
 }
 
 .nav__links {
@@ -39,4 +40,17 @@
     letter-spacing: 1px;
     margin-left: 10px;
     margin-right: 10px;
+}
+
+.title-HRnet {
+    display: none;
+}
+
+@media (max-width: 596px) {
+    .title-HRnet {
+        display: block;
+    }
+    .title-CurrentEmployees {
+        display: none;
+    }
 }

@@ -22,7 +22,10 @@ export default function Header() {
                 <Link to='/' className='nav__logo'>
                     <img className='nav__logo__img' src={logo} alt='hrnet' />
                 </Link>
-                <h1 className='title' >HRnet</h1>
+                <div>
+                <h1 className='title titleEmployees title-HRnet' >HRnet</h1>
+                <h1 className='title titleEmployees title-CurrentEmployees' >Current Employees</h1>
+                </div>
                 <Link className='nav__links' to='/'>Create New Employee</Link>
             </nav>
     )

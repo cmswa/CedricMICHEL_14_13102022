@@ -1,3 +1,14 @@
 .employeesTitle {
-    margin-top: 3.5em;
+    display: none;
+    /* margin-top: 3.5em; */
+    margin: 3em 10px 5px;
+}
+
+@media (max-width: 596px) {
+    .employeesTitle {
+        display: block;
+    }
+    .table {
+        margin-top: 0;
+    }
 }

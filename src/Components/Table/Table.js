@@ -4,6 +4,7 @@ import {
     GridToolbarColumnsButton, GridToolbarFilterButton, GridToolbarDensitySelector,
     GridToolbarExport, GridToolbarQuickFilter
 } from '@mui/x-data-grid';
+import './Table.css'
 
 export default function Table({ data }) {
 
@@ -34,7 +35,7 @@ export default function Table({ data }) {
     }
 
     return (
-        <div style={{ height: '75vh', width: '100%' }}>
+        <div className='table'>
             <DataGrid rows={data}
                 columns={columns}
                 // components={{
