@@ -6,6 +6,7 @@ import Home from './Pages/Home';
 import Employees from './Pages/Employees';
 import "@fontsource/ibm-plex-serif"; // Defaults to weight 400.
 import "@fontsource/russo-one"; // Defaults to weight 400.
+// import 'bootstrap/dist/css/bootstrap.min.css';
 
 //Redux
 import { Provider } from 'react-redux';

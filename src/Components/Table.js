@@ -34,7 +34,7 @@ export default function Table({ data }) {
     }
 
     return (
-        <div style={{ height: 500, width: '100%' }}>
+        <div style={{ height: '75vh', width: '100%' }}>
             <DataGrid rows={data}
                 columns={columns}
                 // components={{

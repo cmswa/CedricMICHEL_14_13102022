@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import ReactModal from 'react-modal'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
-import Input from '../Components/Input'
+import Input from '../Components/Input/Input'
 import { employeesData } from '../data/data'
 import { states } from '../data/states'
 import { submitForm, validForm, unvalidForm, checkValid } from '../redux/actions'
@@ -137,10 +137,10 @@ export default function Home() {
 
             <div className="container">
                 {/* <Link to='/employee-list'>View Current Employees</Link> */}
-                <h2 className='homeTitle' >Create Employee</h2>
-                <button onClick={openModal}>test modal</button>
+                {/* <button onClick={openModal}>test modal</button> */}
 
                 <form onSubmit={validateForm} id="create-employee">
+                    <h2 className='homeTitle' >Create Employee</h2>
                     <Input label="First Name" labelFor="first-name" inputType="text" inputId="first-name"
                         setValue={e => setFirstName(e.target.value)} />
                     <Input label="Last Name" labelFor="last-name" inputType="text" inputId="last-name"
@@ -155,7 +155,8 @@ export default function Home() {
                             showMonthDropdown
                             showYearDropdown
                             dropdownMode="select"
-                            placeholderText={"mm/dd/yyyy"} />
+                            placeholderText={"mm/dd/yyyy"}
+                            className='form-control' />
                     </div>
                     <div>
                         <label htmlFor={"start-date"}>Start Date</label>
@@ -164,7 +165,8 @@ export default function Home() {
                             maxDate={moment().add(12, "weeks")._d}
                             showMonthDropdown
                             showYearDropdown
-                            dropdownMode="select" />
+                            dropdownMode="select"
+                            className='form-control' />
                     </div>
 
                     <fieldset className="address">
@@ -231,7 +233,8 @@ export default function Home() {
                         outline: 'none',
                         padding: '20px',
                         maxWidth: '500px',
-                        width: '80%',
+                        // width: '80%',
+                        width: '65%',
                     }
                 }}
             >
