@@ -6,7 +6,9 @@ import { states } from '../data/states'
 import { submitForm, validForm, unvalidForm, checkValid } from '../redux/actions'
 import DatePicker from "react-datepicker"
 import moment from 'moment';
-import Dropdown from '../Components/Dropdown/Dropdown'
+// import Dropdown from '../Components/Dropdown/Dropdown'
+import { Dropdown } from 'cm_plugin_dropdown';
+import 'cm_plugin_dropdown/dist/index.css'
 
 import "react-datepicker/dist/react-datepicker.css";
 import { selectEmployees } from '../utils/selectors'
@@ -14,7 +16,6 @@ import '../styles/pages/home.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTimesCircle } from "@fortawesome/free-solid-svg-icons"
 import Header from '../Components/Header/Header'
-
 
 //Make sure to bind modal to your appElement (https://reactcommunity.org/react-modal/accessibility/)
 ReactModal.setAppElement('#root');
