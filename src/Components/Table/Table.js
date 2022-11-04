@@ -1,8 +1,7 @@
 import React from 'react'
 import {
-    DataGrid, GridRowsProp, GridColDef, GridToolbar, GridToolbarContainer,
-    GridToolbarColumnsButton, GridToolbarFilterButton, GridToolbarDensitySelector,
-    GridToolbarExport, GridToolbarQuickFilter
+    DataGrid, GridToolbarContainer, GridToolbarColumnsButton,
+    GridToolbarDensitySelector, GridToolbarExport, GridToolbarQuickFilter
 } from '@mui/x-data-grid';
 import './Table.css'
 
@@ -26,7 +25,6 @@ export default function Table({ data }) {
         return (
             <GridToolbarContainer>
                 <GridToolbarColumnsButton />
-                {/* <GridToolbarFilterButton /> */}
                 <GridToolbarDensitySelector />
                 <GridToolbarExport />
                 <GridToolbarQuickFilter />
@@ -38,9 +36,6 @@ export default function Table({ data }) {
         <div className='table'>
             <DataGrid rows={data}
                 columns={columns}
-                // components={{
-                //     Toolbar: GridToolbar,
-                //   }}
                 components={{
                     Toolbar: CustomToolbar,
                 }}

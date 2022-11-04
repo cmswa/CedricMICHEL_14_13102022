@@ -2,7 +2,6 @@ import { createSlice } from "@reduxjs/toolkit"
 import { employeesData } from "../data/data"
 
 const initialState = {
-    // data: null,
     data: employeesData,
     formIsValid: false
 }

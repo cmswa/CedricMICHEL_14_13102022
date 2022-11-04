@@ -12,9 +12,6 @@ export default function Dropdown({ list, setValue }) {
     const toogleDropdown = () => {
         setOpen(!open)
     }
-    // function toogleDropdown() {
-    //     return open ? setOpen(false) : setOpen(true)
-    //   }
 
     const data = []
 

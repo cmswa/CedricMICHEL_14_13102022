@@ -3,7 +3,6 @@ import employeesReducer from '../redux/reducer'
 
 const store = configureStore({
     reducer: {
-        // employees: '',
         employees: employeesReducer,
     },
     //devTools enabled que si l'on est pas dans un environnement de production

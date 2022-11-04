@@ -1,14 +1,12 @@
 import React, { useState } from 'react'
 import ReactModal from 'react-modal'
 import { useDispatch, useSelector } from 'react-redux'
-import { Link } from 'react-router-dom'
 import Input from '../Components/Input/Input'
-import { employeesData } from '../data/data'
 import { states } from '../data/states'
 import { submitForm, validForm, unvalidForm, checkValid } from '../redux/actions'
 import DatePicker from "react-datepicker"
 import moment from 'moment';
-import Dropdown from '../Components/DropDown/Dropdown'
+import Dropdown from '../Components/Dropdown/Dropdown'
 
 import "react-datepicker/dist/react-datepicker.css";
 import { selectEmployees } from '../utils/selectors'
@@ -22,9 +20,6 @@ import Header from '../Components/Header/Header'
 ReactModal.setAppElement('#root');
 
 export default function Home() {
-
-    //Enregistrer ou mettre à jour le tableau dans le stockage local 
-    // localStorage.setItem('Array of employees', JSON.stringify(employeesData)) //The JSON.stringify() method converts a JavaScript value to a JSON string
 
     const [firstName, setFirstName] = useState('')
     const [lastName, setLastName] = useState('')
@@ -53,7 +48,6 @@ export default function Home() {
     const getCountEmployees = useSelector(selectEmployees).data.lenght
 
     const newEmployee = {
-        // 'id': employeesData.length,
         'id': getCountEmployees + 1,
         'firstName': firstName,
         'lastName': lastName,
@@ -73,9 +67,6 @@ export default function Home() {
         setIsValidFirstName(true);
         setIsValidLastName(true);
 
-        console.log(firstName);
-        console.log(lastName);
-
         if (firstName === '') {
             setIsValidFirstName(false);
             dispatch(unvalidForm());
@@ -92,24 +83,12 @@ export default function Home() {
         }
     }
 
-    // function storeNewData() {
-    //     if (localStorage.getItem('Array of employees') === null) {
-    //         localStorage.setItem('Array of employees', [])
-    //     }
-    //     const dataReceived = JSON.parse(localStorage.getItem('Array of employees'));
-    //     dataReceived.push(newEmployee);
-    //     localStorage.setItem('Array of employees', JSON.stringify(dataReceived));
-    //     setIsOpen(true);
-    // }
-
     function validateForm(e) {
         e.preventDefault();
         checkForm();
-        // const submission = dispatch(submitForm(newEmployee));
         const submission = dispatch(checkValid());
 
         if (submission) {
-            // storeNewData();
             dispatch(submitForm(newEmployee));
             setFormIsValid(true);
             setDateOfBirth(new Date());
@@ -121,9 +100,9 @@ export default function Home() {
         }
     }
 
-    function openModal() {
-        setIsOpen(true);
-    }
+    // function openModal() {
+    //     setIsOpen(true);
+    // }
     function closeModal() {
         setIsOpen(false);
     }
@@ -131,13 +110,8 @@ export default function Home() {
     return (
         <>
             <Header />
-            {/* <div className="title">
-                <h1>HRnet</h1>
-            </div> */}
 
             <div className="container">
-                {/* <Link to='/employee-list'>View Current Employees</Link> */}
-                {/* <button onClick={openModal}>test modal</button> */}
 
                 <form onSubmit={validateForm} id="create-employee">
                     <h2 className='homeTitle' >Create Employee</h2>
@@ -146,8 +120,6 @@ export default function Home() {
                     <Input label="Last Name" labelFor="last-name" inputType="text" inputId="last-name"
                         setValue={e => setLastName(e.target.value)} />
 
-                    {/* <Input label="Date of Birth" labelFor="date-of-birth" inputType="text" inputId="date-of-birth" />
-                    <Input label="Start Date" labelFor="start-date" inputType="text" inputId="start-date" /> */}
                     <div>
                         <label htmlFor={"date-of-birth"}>Date of Birth</label>
                         <DatePicker selected={dateOfBirth} onChange={setDateOfBirth} value={dateOfBirth}
@@ -178,7 +150,6 @@ export default function Home() {
                             setValue={e => setCity(e.target.value)} />
 
                         <label htmlFor="state">State</label>
-                        {/* <select name="state" id="state"></select> */}
                         < Dropdown list={statesNames} setValue={setState} />
 
                         <Input label="Zip Code" labelFor="zip-code" inputType="number" inputId="zip-code"
@@ -186,20 +157,11 @@ export default function Home() {
                     </fieldset>
 
                     <label htmlFor="department">Department</label>
-                    {/* <select name="department" id="department">
-                        <option>Sales</option>
-                        <option>Marketing</option>
-                        <option>Engineering</option>
-                        <option>Human Resources</option>
-                        <option>Legal</option>
-                    </select> */}
                     < Dropdown list={['Sales', 'Marketing', 'Engineering', 'Human Ressources', 'Legal']} setValue={setDepartment} />
 
                     <button className='saveBtn' >Save</button>
                 </form>
 
-                {/* <button onclick="saveEmployee()">Save</button> */}
-                {/* <button>Save</button> */}
             </div>
 
             <ReactModal
